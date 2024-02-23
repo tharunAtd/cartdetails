@@ -1,0 +1,27 @@
+management:
+  security:
+    enabled: false  #disable the spring security on the management endpoints like /env, /refresh etc.
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: info,health,prometheus,env,httptrace,loggers
+
+logging:
+  level:
+    ROOT: INFO
+
+spring:
+  zipkin:
+    base-url: ${JAEGER_COLLECTOR_URL}
+    service:
+      name: cartservice
+      enabled: true
+  sleuth:
+    opentracing:
+      enabled: true
+    trace-id128: true
+    sampler:
+      probability: 1.0
